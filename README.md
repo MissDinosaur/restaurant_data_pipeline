@@ -1,4 +1,4 @@
-## restaurant_data_pipeline
+## Restaurant Data Pipeline
 There two data sources to be processed in this project. All are related to restaurant order information.
 
 One is jaffle dataset which contains 6 csv file. Another is an Azure Blob SA URL which contains one JSONL file support_tickets.jsonl.

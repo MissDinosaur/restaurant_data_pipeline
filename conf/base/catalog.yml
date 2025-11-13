@@ -1,0 +1,61 @@
+# --------jaffle data--------
+# Bronze: extract data
+raw_customers:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_customers.csv
+
+raw_orders:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_orders.csv
+
+raw_items:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_items.csv
+
+raw_products:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_products.csv
+
+raw_stores:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_stores.csv
+
+raw_supplies:
+  type: kedro_datasets.pandas.CSVDataset
+  filepath: data/01_raw/raw_supplies.csv
+
+# Silver: intermediate outputs
+orders_enriched:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/02_intermediate/orders_enriched.parquet
+
+products_dim:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/02_intermediate/products_dim.parquet
+
+# Gold: analytics models
+fact_order_metrics:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/03_primary/fact_order_metrics.parquet
+
+
+# --------Support Tickets--------
+raw_support_tickets:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/01_raw/support_tickets.parquet
+
+clean_support_tickets:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/02_intermediate/support_tickets_clean.parquet
+
+sentiment_table:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/02_intermediate/sentiment.parquet
+
+tickets_per_order:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/03_primary/tickets_per_order.parquet
+
+avg_score_per_order:
+  type: kedro_datasets.pandas.ParquetDataset
+  filepath: data/03_primary/avg_score_per_order.parquet

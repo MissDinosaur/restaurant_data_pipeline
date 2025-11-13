@@ -1,0 +1,4 @@
+support_tickets_filepath: data/01_raw/support_tickets.jsonl
+support_tickets_sas_url: "https://jafshop.blob.core.windows.net/jafshop-tickets-jsonl?sp=rl&st=2025-10-31T10:19:26Z&se=2025-11-15T18:34:26Z&sv=2024-11-04&sr=c&sig=EuOUuV8x5p6iSHZP3wDvbgw1tWHScn2eBLKdBDB0b0w%3D"
+avg_score_filename: "avg_score_per_order"
+tickets_per_order_filename: "tickets_per_order"

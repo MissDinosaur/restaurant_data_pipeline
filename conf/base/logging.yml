@@ -1,0 +1,24 @@
+#api_data:
+#  type: pandas.JSONDataSet
+#  filepath: data/01_raw/api_data.json
+
+# Silver: intermediate outputs
+orders_enriched:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/orders_enriched.parquet
+
+products_dim:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/products_dim.parquet
+
+# Gold: analytics models
+fact_order_metrics:
+  type: pandas.ParquetDataSet
+  filepath: data/03_primary/fact_order_metrics.parquet
+
+
+kedro run --pipeline=jaffle_ingestion
+kedro run --pipeline=jaffle_transformation
+kedro run --pipeline=jaffle_analytics
+kedro run --pipeline=jaffle_reporting
+kedro run --pipeline=support_tickets --from-nodes "export_avg_score,export_tickets_count"
