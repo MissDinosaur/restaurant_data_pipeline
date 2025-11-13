@@ -7,6 +7,7 @@ def compute_order_metrics(orders_enriched: pd.DataFrame, raw_items: pd.DataFrame
     order_items.rename(columns={"sku": "num_items"}, inplace=True)
 
     df = orders_enriched.merge(order_items, left_on="id", right_on="order_id", how="left")
+    
     # Average order value 
     df["avg_order_value"] = round(df["order_total"].mean(), 2)
 

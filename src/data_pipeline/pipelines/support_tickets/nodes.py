@@ -115,6 +115,5 @@ def export_to_reports(df: pd.DataFrame, file_name: str) -> None:
     output_dir = Path("data/04_reporting")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Export tickets_per_order
     df.to_csv(output_dir / f"{file_name}.csv", index=False)
-    print(f"Reports exported to {output_dir}")
+    print(f"Reports {file_name}.csv is exported to {output_dir}")

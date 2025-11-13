@@ -96,13 +96,13 @@ restaurant_pipeline/
 │   ├── data_pipeline/
 │   │   ├── __init__.py
 │   │   ├── pipelines/
-│   │   │   ├── jaffle_data/      # pipelines of jaffle data source
+│   │   │   ├── jaffle_data/        # pipelines of jaffle data source
 │   │   │   │   ├── ingestion
 │   │   │   │   ├── transformation
 │   │   │   │   ├── analytics
 │   │   │   │   └── reporting
-│   │   │   └── support_tickets/  # pipelines of support_tickets.jsonl
-│   └── └── pipeline_registry.py  # main functiion entry
+│   │   │   └── support_tickets/    # pipelines of support_tickets.jsonl
+│   └── └── pipeline_registry.py    # main functiion entry
 │   
 ├── README.md
 └── pyproject.toml
@@ -151,21 +151,22 @@ restaurant_pipeline/
    kedro run --pipeline=jaffle_analytics
    kedro run --pipeline=jaffle_reporting
    ```
-   After you run these commands, fact_order_metrics.csv wiill be generated in folder /data/04_reporting/. It describes: 1. the Average order value, i.e., the average price 2. the Number of tickets for each order.
+   After the last commands ```kedro run --pipeline=jaffle_reporting``` runs, fact_order_metrics.csv will be generated in folder /data/04_reporting/. It describes: 1. the Average order value, i.e., the average price 2. the Number of tickets of each order.
    
    **For support_tickets:** 
    ```bash
    kedro run --pipeline=support_tickets 
    ```
-   The command above will trigger ingestion node, transformation, analytics node, and reporting node together. And finally, you will get two csv files, namely avg_score_per_order.csv and tickets_per_order.csv in folder /data/04_reporting/. 
+   The command above will trigger nodes of ingestion, transformation, analytics, and reporting sequentially. And finally, you will get two csv files, namely avg_score_per_order.csv and tickets_per_order.csv in folder /data/04_reporting/. 
    
    avg_score_per_order.csv tells us the Average sentiment score in each order while tickets_per_order.csv give us the information about the Number of tickets for each order.
 
-   But if you only want trigger one or two of these nodes instead of the whole piepline, you can run the commands shown as below.
+   But if you only want trigger one or two of these nodes, instead of the whole piepline, you can run the commands shown as below.
    ```bash
-   kedro run --pipeline=support_tickets --from-nodes "export_avg_score, export_tickets_count"
+   kedro run --pipeline=support_tickets --from-nodes "export_avg_score,export_tickets_count"
    ```
    Or
    ```bash
    kedro run --pipeline=support_tickets --from-nodes "export_avg_score"
    ```
+   Place the node name after the parameter --from-nodes as you need.

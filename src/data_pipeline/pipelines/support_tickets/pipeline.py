@@ -5,14 +5,14 @@ from .nodes import load_data_from_azure_blob, clean_support_tickets, extract_sen
 # Using ELT approach. Extract --> Load --> Transform
 def create_pipeline(**kwargs):
     return Pipeline([
-        # Extract + Load
+        # 1. Extract + Load
         node(
             func=load_data_from_azure_blob,
             inputs="params:support_tickets_sas_url",
             outputs="raw_support_tickets",
             name="load_support_tickets_node"
         ),
-        # Transform: cleaning data and flattening nested fields to generate intermediate tables
+        # 2. Transform: cleaning data and flattening nested fields to generate intermediate tables
         node(
             func=clean_support_tickets,
             inputs="raw_support_tickets",
@@ -25,9 +25,9 @@ def create_pipeline(**kwargs):
             outputs="sentiment_table",
             name="extract_sentiment_node"
         ),
-        # Analytics: 
-        # 1. Analyzing the average sentiment score in each order.
-        # 2. Analyzing the number of tickets per order
+        # 3. Analytics: 
+        #   1. Analyzing the average sentiment score in each order.
+        #   2. Analyzing the number of tickets per order
         node(
             func=calculate_avg_score,
             inputs="sentiment_table",
@@ -40,7 +40,7 @@ def create_pipeline(**kwargs):
             outputs="tickets_per_order",
             name="tickets_per_order_node"
         ),
-        # Export anlytic results to the csv file for a better check
+        # 4. Export anlytic results to the csv file for a better check
         node(
             func=export_to_reports,
             inputs=["avg_score_per_order", "params:avg_score_filename"],  # from analytics outputs

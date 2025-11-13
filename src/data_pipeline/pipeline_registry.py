@@ -6,12 +6,15 @@ from data_pipeline.pipelines.jaffle_data.reporting.pipeline import create_pipeli
 from data_pipeline.pipelines.support_tickets import pipeline as s_pipe
 
 def register_pipelines() -> dict[str, Pipeline]:
+    """ Register all the kedro pipeline in this project. """
     return {
         "__default__": jaffle_ingestion_pipeline() + jaffle_transformation_pipeline() + jaffle_analytics_pipeline() + jaffle_reporting_pipeline() \
                     + s_pipe.create_pipeline(),
+        # Register data pipelines of jaffle data         
         "jaffle_ingestion": jaffle_ingestion_pipeline(),
         "jaffle_transformation": jaffle_transformation_pipeline(),
         "jaffle_analytics": jaffle_analytics_pipeline(),
         "jaffle_reporting": jaffle_reporting_pipeline(),
+        # Register support tickets data pipeline that includes several nodes
         "support_tickets": s_pipe.create_pipeline(),
     }

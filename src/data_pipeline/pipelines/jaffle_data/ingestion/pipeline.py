@@ -2,6 +2,7 @@ from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import combine_raw_sources
 
 def create_pipeline(**kwargs) -> Pipeline:
+    """Create a data ingestion pipeline."""
     return pipeline([
         node(
             func=combine_raw_sources,
