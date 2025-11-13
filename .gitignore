@@ -1,6 +1,6 @@
-data/02_intermediate
-data/03_primary
-data/04_reporting
+data/02_intermediate/*
+data/03_primary/*
+data/04_reporting/*
 
 venv311/
 # Byte-compiled / optimized / DLL files
