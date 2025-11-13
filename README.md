@@ -1,12 +1,12 @@
 ## Restaurant Data Pipeline
-There two data sources to be processed in this project. All are related to restaurant order information.
+There are two data sources to be processed in this project. All are related to restaurant order information.
 
 One is jaffle dataset which contains 6 csv file. Another is an Azure Blob SA URL which contains one JSONL file support_tickets.jsonl.
 
-The data workflow is: ingestion  -->  transformation  -->  analytics  -->  reporting.
-- ingestion: Extract data
-- transformation: Transform or process data
-- analytics: Aggragate data as per business need
+The data workflow uses a bronze-silver-gold layered approach: ingestion  -->  transformation  -->  analytics  -->  reporting.
+- ingestion (Bronze): Extract data
+- transformation (Silver): Transform or process data
+- analytics (Gold): Aggragate data as per business need
 - reporting: Export analytic results into csv file for a better check.
 
 
@@ -20,9 +20,9 @@ It's a 1 year sample spanning from 2016 to 2017, and includes the following tabl
 - `raw_stores`: the stores where orders are placed
 - `raw_supplies`: the supplies that are used to make products
 
-Becaue jaffle dataset consists of six clean, flat CSV tables which are structured and well-defined, therefore ETL techinque is selected here.
+Because jaffle dataset consists of six clean, flat CSV tables which are structured and well-defined, therefore ETL techinque is selected here.
 
-Unlike the JSONL from support_tickets, these CSVs don’t need heavy schema inference or nested parsing. 
+Unlike the JSONL data source, these CSVs don’t need heavy schema inference or nested parsing. 
 
 So, transformations (like joins, type casting, enrichment) are cheap and predictable — perfect for an ETL-style pipeline:
 - Extract: Read CSVs
@@ -38,7 +38,7 @@ data/
 ```
 
 ### 2. Support_tickets Data
-support_tickets.jsonl is about the restaurant order details, having ticket_id, order_id, status and sentiment etc., fileds. 
+support_tickets.jsonl is about the restaurant order details, having ticket_id, order_id, status and sentiment, etc., fileds. 
 
 Below is one sample.
 
@@ -56,7 +56,7 @@ Below is one sample.
 }
 ```
 
-Because this support_tickets data source is semi-structured (JSON Lines), so ELT techinque is better for it data modeling.
+Because this support_tickets data source is semi-structured (JSON Lines), so ELT techinque is better for its data modeling.
 
 
 
@@ -74,7 +74,7 @@ data/
 ```
 
 ### Technical Stack
-In this project, Kedro is chosen here to orchestrate the data workflow. As it 
+In this project, **Kedro** is chosen here to orchestrate the data workflow. As it 
 - Enforces a layered architecture (raw --> intermediate --> analytics) which is required in this assignment.
 - Perfect for modular, local development before deploying to orchestration.
 - Integrates easily with Airflow/Prefect/Dagster later if needed.
@@ -105,7 +105,8 @@ restaurant_pipeline/
 │   └── └── pipeline_registry.py    # main functiion entry
 │   
 ├── README.md
-└── pyproject.toml
+├── pyproject.toml
+└── requirements.txt
 ```
 
 ### Setup
@@ -137,7 +138,7 @@ restaurant_pipeline/
    deactivate
    ```
 
-4. Install the dependencies (Recommended Python version==3.10.0 or 3.11.0):
+4. Install the dependencies (Recommended Python version==3.11.0):
    ```bash
    pip install -r requirements.txt
    ```
@@ -159,7 +160,7 @@ restaurant_pipeline/
    ```
    The command above will trigger nodes of ingestion, transformation, analytics, and reporting sequentially. And finally, you will get two csv files, namely avg_score_per_order.csv and tickets_per_order.csv in folder /data/04_reporting/. 
    
-   avg_score_per_order.csv tells us the Average sentiment score in each order while tickets_per_order.csv give us the information about the Number of tickets for each order.
+   avg_score_per_order.csv tells us the average sentiment score in each order while tickets_per_order.csv give us the information about the number of tickets for each order.
 
    But if you only want trigger one or two of these nodes, instead of the whole piepline, you can run the commands shown as below.
    ```bash
@@ -170,3 +171,5 @@ restaurant_pipeline/
    kedro run --pipeline=support_tickets --from-nodes "export_avg_score"
    ```
    Place the node name after the parameter --from-nodes as you need.
+
+### END
