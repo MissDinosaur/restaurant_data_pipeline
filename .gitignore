@@ -2,8 +2,7 @@ data/02_intermediate/*
 !data/02_intermediate/.gitkeep
 data/03_primary/*
 !data/03_primary/.gitkeep
-data/04_reporting/*
-!data/04_reporting/.gitkeep
+data/04_reporting
 
 venv311/
 # Byte-compiled / optimized / DLL files
